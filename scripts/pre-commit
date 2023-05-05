@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "Linting Application"
+
+npm run lint:all
+
+echo "Run test 2e2 Application"
+
+npm run test:api-e2e
+
+status=$?
+
+exit $status
+

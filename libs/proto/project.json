@@ -1,0 +1,46 @@
+{
+  "name": "my-proto",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/proto/src",
+  "projectType": "library",
+  "targets": {
+
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/proto",
+        "tsConfig": "libs/proto/tsconfig.lib.json",
+        "packageJson": "libs/proto/package.json",
+        "main": "libs/proto/src/index.ts",
+        "assets": ["libs/proto/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs proto {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/proto/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/proto/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
