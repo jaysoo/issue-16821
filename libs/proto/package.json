@@ -1,5 +1,11 @@
 {
   "name": "@my/proto",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "require": "./src/index.js"
+    }
+  }
 }
